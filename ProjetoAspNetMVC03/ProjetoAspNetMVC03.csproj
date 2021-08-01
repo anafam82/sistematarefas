@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ProjetoAspNetMVC03.Data\ProjetoAspNetMVC03.Data.csproj" />
+    <ProjectReference Include="..\ProjetoAspNetMVC03.Messages\ProjetoAspNetMVC03.Messages.csproj" />
+    <ProjectReference Include="..\ProjetoAspNetMVC03.Reports\ProjetoAspNetMVC03.Reports.csproj" />
+  </ItemGroup>
+
+</Project>

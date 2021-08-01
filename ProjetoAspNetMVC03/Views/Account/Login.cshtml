@@ -1,0 +1,73 @@
+﻿
+@model ProjetoAspNetMVC03.Models.AccountLoginModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Login</title>
+
+    <!-- folhas de estilo CSS -->
+    <link href="~/css/bootstrap.css" rel="stylesheet" />
+
+</head>
+<body class="bg-secondary">
+
+    <div class="mt-5 col-md-4 offset-md-4">
+        <div class="card">
+            <div class="card-body text-center">
+
+                <img class="img-fluid" src="https://www.cotiinformatica.com.br/imagens/logo-coti-informatica.png" />
+
+                <h5>Acesso ao Sistema</h5>
+                <hr />
+
+                @using (Html.BeginForm("Login", "Account", FormMethod.Post,
+                  new { @autocomplete = "off" }))
+                {
+                    <label>Email de acesso:</label>
+                    @Html.TextBoxFor(model => model.Email, new { @class = "form-control" })
+                    <span class="text-danger">
+                        @Html.ValidationMessageFor(model => model.Email)
+                    </span>
+                    <br />
+
+                    <label>Senha de acesso:</label>
+                    @Html.PasswordFor(model => model.Senha, new { @class = "form-control" })
+                    <span class="text-danger">
+                        @Html.ValidationMessageFor(model => model.Senha)
+                    </span>
+                    <div class="text-end">
+                        <a href="/Account/PasswordRecovery">Esqueci minha senha?</a>
+                    </div>
+                    <br />
+
+                    <div class="d-grid">
+                        <input type="submit" class="btn btn-dark" value="Acessar Sistema" />
+                        <a href="/Account/Register" class="btn btn-light">Crie sua Conta de Usuário</a>
+                    </div>
+
+                    @if (TempData["Mensagem"] != null)
+                    {
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <strong>@TempData["Mensagem"]</strong>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    }
+                }
+
+            </div>
+        </div>
+    </div>
+
+
+    <!-- arquivos javascript -->
+    <script src="~/js/bootstrap.js"></script>
+
+</body>
+</html>

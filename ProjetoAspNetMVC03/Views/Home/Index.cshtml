@@ -1,0 +1,135 @@
+﻿@model List<ProjetoAspNetMVC03.Data.Entities.Tarefa>
+
+@{
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+
+<h5>Seja bem vindo ao projeto (Data atual: <strong class="text-primary">@DateTime.Now.ToString("dd/MM/yyyy")</strong>)</h5>
+Resumo das tarefas no período de
+<strong>@TempData["PrimeiroDiaDoMesAtual"]</strong> até
+<strong>@TempData["UltimoDiaDoMesAtual"]</strong>
+
+
+<div class="row mb-5 mt-3">
+    <div class="col-md-6">
+        <div class="table-responsive">
+
+            <table id="tabela" class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>Data</th>
+                        <th>Hora</th>
+                        <th>Prioridade</th>
+                        <th>Nome da tarefa</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        if (DateTime.Now.ToString("dd/MM/yyyy").Equals(item.Data.ToString("dd/MM/yyyy")))
+                        {
+                            <tr class="bg-primary">
+                                <td class="text-white">@item.Data.ToString("dd/MM/yyyy")</td>
+                                <td class="text-white">@item.Hora.ToString(@"hh\:mm")</td>
+                                <td class="text-white">
+                                    @if (item.Prioridade.Equals("ALTA"))
+                                    {
+                                        <span class="badge bg-danger">ALTA</span>
+                                    }
+                                    else if (item.Prioridade.Equals("MEDIA"))
+                                    {
+                                        <span class="badge bg-warning">MÉDIA</span>
+                                    }
+                                    else if (item.Prioridade.Equals("BAIXA"))
+                                    {
+                                        <span class="badge bg-success">BAIXA</span>
+                                    }
+                                </td>
+                                <td class="text-white">@item.Nome</td>
+                            </tr>
+
+                        }
+                        else
+                        {
+                            <tr>
+                                <td>@item.Data.ToString("dd/MM/yyyy")</td>
+                                <td>@item.Hora.ToString(@"hh\:mm")</td>
+                                <td>
+                                    @if (item.Prioridade.Equals("ALTA"))
+                                    {
+                                        <span class="badge bg-danger">ALTA</span>
+                                    }
+                                    else if (item.Prioridade.Equals("MEDIA"))
+                                    {
+                                        <span class="badge bg-warning">MÉDIA</span>
+                                    }
+                                    else if (item.Prioridade.Equals("BAIXA"))
+                                    {
+                                        <span class="badge bg-success">BAIXA</span>
+                                    }
+                                </td>
+                                <td>@item.Nome</td>
+                            </tr>
+
+                        }
+
+
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div id="grafico-tarefas"></div>
+
+
+    </div>
+</div>
+
+@section grafico{ 
+
+    <script>
+
+        var array = [];
+
+        //DADOS DO GRAFICO
+        array.push(['ALTA', @TempData["TotalPrioridadeAlta"]]);
+        array.push(['MEDIA', @TempData["TotalPrioridadeMedia"]]);
+        array.push(['BAIXA', @TempData["TotalPrioridadeBaixa"]]);
+
+        //desenhando o grafico
+        new Highcharts.Chart({
+            chart: {
+                type: 'pie',
+                renderTo:'grafico-tarefas'
+            },
+            title: {
+                text: 'Tarefas por prioridade'
+            },
+            plotOptions: {
+                pie: {
+                    innerSize: '60%',
+                    dataLabels: {
+                        enable: true
+                    },
+                    showInLegend: true
+                }
+            },
+            credits: {
+                enable: false
+            },
+            series: [{
+                data:array
+            }],
+            colors:['#d9534f','#f0ad4e','#5cb85c']
+
+        });
+
+    </script>
+
+
+
+
+
+}
+

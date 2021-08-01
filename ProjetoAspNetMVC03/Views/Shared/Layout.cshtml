@@ -1,0 +1,107 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>COTI Informatica</title>
+
+    <!-- referencia para os arquivos CSS do bootstrap -->
+    <link href="~/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/css/jquery.dataTables.min.css" rel="stylesheet" />
+
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Sistema de Controle de Tarefas</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/Home/Index">Página inicial</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Gerenciar Tarefas
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="/Tarefa/Cadastro">Cadastrar tarefas</a></li>
+                            <li><a class="dropdown-item" href="/Tarefa/Consulta">Consultar tarefas</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="/Tarefa/Relatorio">Relatorio de tarefas</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Minha Conta
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="/Usuario/MeusDados">Dados do usuário</a></li>
+                            <li><a class="dropdown-item" href="/Usuario/EditarSenha">Alterar senha de acesso</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <form class="d-flex">
+                    <div class="text-white">
+                        @User.Identity.Name &nbsp;&nbsp;&nbsp;
+                        <a href="/Account/Logout" class="btn btn-outline-danger btn-sm"
+                           onclick="return confirm('Deseja realmente sair do sistema?')">
+                            Sair do Sistema
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    @if (TempData["Mensagem"] != null)
+    {
+        <div class="alert alert-secondary alert-dismissible fade show" role="alert">
+            <strong>@TempData["Mensagem"]</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    <div class="container mt-4">
+        @RenderBody()
+    </div>
+
+    <!-- referencia para arquivos JavaScript -->
+    <script src="~/js/bootstrap.js"></script>
+    <script src="~/js/jquery-3.6.0.min.js"></script>
+    <script src="~/js/jquery.dataTables.min.js"></script>
+
+    <!--Adicionando as bibliotecas do Highcharts-->
+    <script src="~/js/highcharts.js"></script>
+    <script src="~/js/highcharts-3d.js"></script>
+    <script src="~/js/exporting.js"></script>
+    <script src="~/js/export-data.js"></script>
+
+    <!-- local para que a pagina /Home/Index possa inserir conteudo dentro da pagina de layout-->
+    @RenderSection("grafico", required:false)
+
+
+    <script>
+
+        //código javascript utilizando jquery
+        $(document).ready(function () {
+            $('#tabela').DataTable(
+                {
+                    language: {
+                        url: '//cdn.datatables.net/plug-ins/1.10.25/i18n/Portuguese-Brasil.json'
+                    }
+                }
+            );
+        });
+
+    </script>
+
+</body>
+</html>

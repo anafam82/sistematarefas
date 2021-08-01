@@ -1,0 +1,46 @@
+﻿@model ProjetoAspNetMVC03.Models.TarefaRelatorioModel
+
+@{
+    ViewData["Title"] = "Relatorio";
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+
+<h5>Relatórios de tarefas do usuário</h5>
+Imprima a listagem de tarefas do usuario, selecionando o período de datas desejado.
+<br />
+<br />
+
+@using (Html.BeginForm("Relatorio", "Tarefa", FormMethod.Post,
+     new { @autocomplete = "off" }))
+{
+    <div class="row">
+
+        <div class="col-md-3">
+            <label>Data de início:</label>
+            @Html.TextBoxFor(model => model.DataInicio,
+                new { @class = "form-control", @type = "date" })
+            <span class="text-danger">
+                @Html.ValidationMessageFor(model => model.DataInicio)
+            </span>
+        </div>
+
+        <div class="col-md-3">
+            <label>Data de término:</label>
+            @Html.TextBoxFor(model => model.DataTermino,
+                new { @class = "form-control", @type = "date" })
+            <span class="text-danger">
+                @Html.ValidationMessageFor(model => model.DataTermino)
+            </span>
+        </div>
+
+    </div>
+
+    <br />
+
+    <input type="submit" value="Gerar Relatório"
+           class="btn btn-success" />
+
+}
+
+
+

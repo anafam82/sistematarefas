@@ -1,0 +1,49 @@
+﻿
+@model ProjetoAspNetMVC03.Models.UsuarioEditarSenhaModel
+
+@{
+    ViewData["Title"] = "EditarSenha";
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+
+<h5>Alterar senha de acesso</h5>
+Preencha o formulário para alterar sua senha.
+<br />
+<br />
+
+<div class="row">
+    <div class="col-md-4">
+
+        @using (Html.BeginForm("EditarSenha", "Usuario", FormMethod.Post,
+         new { @autocomplete = "off" }))
+        {
+            <label>Informe sua senha atual:</label>
+            @Html.PasswordFor(model => model.SenhaAtual, new { @class = "form-control" })
+            <span class="text-danger">
+                @Html.ValidationMessageFor(model => model.SenhaAtual)
+            </span>
+            <br />
+
+            <label>Informe sua nova senha:</label>
+            @Html.PasswordFor(model => model.NovaSenha, new { @class = "form-control" })
+            <span class="text-danger">
+                @Html.ValidationMessageFor(model => model.NovaSenha)
+            </span>
+            <br />
+
+            <label>Confirme sua nova senha:</label>
+            @Html.PasswordFor(model => model.NovaSenhaConfirmacao, new { @class = "form-control" })
+            <span class="text-danger">
+                @Html.ValidationMessageFor(model => model.NovaSenhaConfirmacao)
+            </span>
+            <br />
+
+            <input type="submit" class="btn btn-success"
+                   value="Confirmar Alteração de Senha" />
+        }
+
+    </div>
+</div>
+
+
+

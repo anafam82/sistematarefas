@@ -1,0 +1,88 @@
+﻿@model ProjetoAspNetMVC03.Models.AccountRegisterModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Login</title>
+
+    <!-- folhas de estilo CSS -->
+    <link href="~/css/bootstrap.css" rel="stylesheet" />
+
+</head>
+<body class="bg-secondary">
+
+    <div class="mt-5 col-md-4 offset-md-4">
+        <div class="card">
+            <div class="card-body text-center">
+
+                <img class="img-fluid" src="https://www.cotiinformatica.com.br/imagens/logo-coti-informatica.png" />
+
+                <h5>Crie sua conta de Usuário</h5>
+                <hr />
+
+                @if (TempData["Mensagem"] != null) //quem critica q decide qual mensagem q vai aparecer é o controller
+                {
+                    <div class="alert alert-secondary alert-dismissible fade show" role="alert">
+                        <strong>@TempData["Mensagem"]</strong>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                }
+
+                @using (Html.BeginForm("Register", "Account", FormMethod.Post,
+                   new { @autocomplete = "off" }))
+                {
+                    <label>Nome do usuário:</label>
+                    @Html.TextBoxFor(model => model.Nome, new { @class = "form-control" })
+                    <span class="text-danger">
+                        @Html.ValidationMessageFor(model => model.Nome)
+                    </span>
+                    <br />
+
+                    <label>Email de acesso:</label>
+                    @Html.TextBoxFor(model => model.Email, new { @class = "form-control" })
+                    <span class="text-danger">
+                        @Html.ValidationMessageFor(model => model.Email)
+                    </span>
+                    <br />
+
+                    <label>Senha de acesso:</label>
+                    @Html.PasswordFor(model => model.Senha, new { @class = "form-control" })
+                    <span class="text-danger">
+                        @Html.ValidationMessageFor(model => model.Senha)
+                    </span>
+                    <br />
+
+                    <label>Confirme sua senha:</label>
+                    @Html.PasswordFor(model => model.SenhaConfirmacao, new { @class = "form-control" })
+                    <span class="text-danger">
+                        @Html.ValidationMessageFor(model => model.SenhaConfirmacao)
+                    </span>
+                    <br />
+
+                    <div class="d-grid">
+                        <input type="submit" class="btn btn-success" value="Realizar Cadastro" />
+                        <a href="/Account/Login" class="btn btn-light">Acessar Sistema</a>
+                    </div>
+
+                }
+
+            </div>
+        </div>
+    </div>
+
+
+    <!-- arquivos java -->
+    < src="~/js/bootstrap.js"></>
+
+</body>
+</html>
+
+
+
+
